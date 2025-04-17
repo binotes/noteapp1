@@ -109,6 +109,21 @@ def run_server():
     print('servring at port : %s' % PORT)
     srv.serve_forever()
 
+
+from SocketServer import ThreadingMixIn
+from wsgiref.simple_server import WSGIServer
+
+class ThreadingWSGIServer(ThreadingMixIn, WSGIServer):
+    pass
+
+def thread_server():
+    server =  make_server('0.0.0.0', PORT, application, server_class=ThreadingWSGIServer)
+    print('threading srv servring at port : %s' % PORT)
+    server.serve_forever()
+     
+
+
 if __name__ == '__main__':
-    run_server()
+    # run_server()
+    thread_server()
 
